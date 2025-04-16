@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const GroupCreator = ({ addGroup }) => {
+const GroupCreator = ({ addGroup, projects }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+  const [project, setProject] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const newGroup = { name, description, date };
+    const newGroup = { name, description, date, project };
     addGroup(newGroup);
+
     setName('');
     setDescription('');
     setDate('');
+    setProject('');
+
     navigate('/');
   };
 
@@ -52,6 +55,24 @@ const GroupCreator = ({ addGroup }) => {
             className="w-full px-3 py-2 border rounded"
             required
           />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Select Project</label>
+          <select
+            value={project}
+            onChange={(e) => setProject(e.target.value)}
+            className="w-full px-3 py-2 border rounded"
+            required
+          >
+          <option value="" disabled>
+            Select a project
+          </option>
+          {projects.map((proj, index) => (
+          <option key={index} value={proj}>
+            {proj}
+          </option>
+          ))}
+          </select>
         </div>
         <button
           type="submit"
