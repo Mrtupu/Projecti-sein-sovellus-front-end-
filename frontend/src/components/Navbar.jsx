@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { FaUsers, FaPlus, FaUserCircle } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = ({ currentUser, setCurrentUser }) => {
+  const { translations, toggleLanguage, language } = useLanguage();
+
   const handleLogin = () => {
-    const username = prompt('Enter your username:');
+    const username = prompt(translations.login);
     if (username) {
       localStorage.setItem('currentUser', username);
       setCurrentUser(username);
@@ -26,19 +29,22 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
         <div className="flex space-x-6 items-center">
           <Link to="/create" className="flex items-center space-x-1 hover:text-gray-300">
             <FaPlus />
-            <span>Uusi ryhmä</span>
+            <span>{translations.newGroup}</span>
           </Link>
           <span>{currentUser}</span>
           {currentUser === 'Guest' ? (
             <button onClick={handleLogin} className="hover:text-gray-300">
               <FaUserCircle />
-              <span>Login</span>
+              <span>{translations.login}</span>
             </button>
           ) : (
             <button onClick={handleLogout} className="hover:text-gray-300">
-              Logout
+              {translations.logout}
             </button>
           )}
+          <button onClick={toggleLanguage} className="hover:text-gray-300">
+            {language === 'en' ? 'FI' : 'EN'} {/* Dynamically update the button text */}
+          </button>
         </div>
       </div>
     </nav>
