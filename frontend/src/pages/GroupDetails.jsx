@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
-const GroupDetails = ({ groups, currentUser, joinGroup }) => {
+const GroupDetails = ({ groups, currentUser, joinGroup, leaveGroup }) => {
   const { id } = useParams();
   const group = groups[id];
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
-  const [showConfirmation, setShowConfirmation] = useState(false); 
+  const [showJoinConfirmation, setShowJoinConfirmation] = useState(false);
+  const [showLeaveConfirmation, setShowLeaveConfirmation] = useState(false);
   const { translations } = useLanguage();
 
   const handleSendMessage = (e) => {
@@ -20,8 +21,14 @@ const GroupDetails = ({ groups, currentUser, joinGroup }) => {
 
   const handleJoinGroup = () => {
     joinGroup(id);
-    setShowConfirmation(true);
-    setTimeout(() => setShowConfirmation(false), 3000);
+    setShowJoinConfirmation(true);
+    setTimeout(() => setShowJoinConfirmation(false), 3000);
+  };
+
+  const handleLeaveGroup = () => {
+    leaveGroup(id);
+    setShowLeaveConfirmation(true);
+    setTimeout(() => setShowLeaveConfirmation(false), 3000);
   };
 
   const isMember = group.members.includes(currentUser);
@@ -40,11 +47,24 @@ const GroupDetails = ({ groups, currentUser, joinGroup }) => {
           {translations.joinGroup}
         </button>
       ) : (
-        showConfirmation && (
-          <p className="mt-4 text-green-600 font-bold">
-            {translations.joinedConfirmation || 'You have joined the group!'}
-          </p>
-        )
+        <>
+          {showJoinConfirmation && (
+            <p className="mt-4 text-green-600 font-bold">
+              {translations.joinedConfirmation || 'You have joined the group!'}
+            </p>
+          )}
+          <button
+            onClick={handleLeaveGroup}
+            className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            {translations.leaveGroup || 'Leave Group'}
+          </button>
+          {showLeaveConfirmation && (
+            <p className="mt-4 text-red-600 font-bold">
+              {translations.leftConfirmation || 'You have left the group.'}
+            </p>
+          )}
+        </>
       )}
 
       {isMember && (

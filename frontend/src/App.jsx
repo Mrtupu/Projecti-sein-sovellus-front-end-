@@ -36,6 +36,16 @@ const App = () => {
     );
   };
 
+  const leaveGroup = (groupId) => {
+    setGroups(
+      groups.map((group, index) =>
+        index === parseInt(groupId)
+          ? { ...group, members: group.members.filter(member => member !== currentUser) }
+          : group
+      )
+    );
+  };
+
   return (
     <Router>
       <div className="min-h-screen flex flex-col">
@@ -46,7 +56,7 @@ const App = () => {
             <Route path="/create" element={<GroupCreator addGroup={addGroup} projects={projects} />} />
             <Route
               path="/groups/:id"
-              element={<GroupDetails groups={groups} currentUser={currentUser} joinGroup={joinGroup} />}
+              element={<GroupDetails groups={groups} currentUser={currentUser} joinGroup={joinGroup} leaveGroup={leaveGroup} />}
             />
           </Routes>
         </main>
