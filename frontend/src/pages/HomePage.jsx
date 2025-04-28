@@ -12,13 +12,13 @@ const HomePage = ({ groups, projects }) => {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-gray-100 rounded shadow">
-      <h1 className="text-3xl font-bold mb-4">{translations.welcome}</h1>
+      <h1 className="text-3xl font-bold mb-4 text-gray-900">{translations.welcome}</h1>
       <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">{translations.filterByProject}</label>
+        <label className="block text-sm font-medium mb-1 text-gray-900">{translations.filterByProject}</label>
         <select
           value={selectedProject}
           onChange={(e) => setSelectedProject(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
+          className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900"
         >
           <option value="">{translations.allProjects}</option>
           {projects.map((proj, index) => (
@@ -29,7 +29,7 @@ const HomePage = ({ groups, projects }) => {
         </select>
       </div>
       {filteredGroups.length === 0 ? (
-        <p>{translations.noGroups}</p>
+        <p className="text-gray-900">{translations.noGroups}</p>
       ) : (
         <ul className="space-y-4">
           {filteredGroups.map((group, index) => (
@@ -37,7 +37,7 @@ const HomePage = ({ groups, projects }) => {
               <Link to={`/groups/${index}`} className="text-xl font-bold text-blue-500 hover:underline">
                 {group.name}
               </Link>
-              <p>{group.description}</p>
+              <p className="text-gray-900">{group.description}</p>
               <p className="text-sm text-gray-500">
                 {translations.date}: {group.date} 
               </p>

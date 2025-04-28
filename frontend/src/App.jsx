@@ -8,6 +8,11 @@ import GroupDetails from './pages/GroupDetails';
 const App = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState('Guest');
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved === 'true' ? true : false;
+  });
+
   const projects = [
     'Python Ryhmätyö',
     'Javascript Canvas API',
@@ -21,6 +26,19 @@ const App = () => {
       setCurrentUser(storedUser);
     }
   }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
 
   const addGroup = (group) => {
     setGroups([...groups, { ...group, members: [] }]);
@@ -48,19 +66,19 @@ const App = () => {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-        <main className="flex-1 p-16">
-          <Routes>
-            <Route path="/" element={<HomePage groups={groups} projects={projects} />} />
-            <Route path="/create" element={<GroupCreator addGroup={addGroup} projects={projects} />} />
-            <Route
-              path="/groups/:id"
-              element={<GroupDetails groups={groups} currentUser={currentUser} joinGroup={joinGroup} leaveGroup={leaveGroup} />}
-            />
-          </Routes>
-        </main>
-      </div>
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 transition-colors duration-300">
+      <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <main className="flex-1 p-16">
+        <Routes>
+          <Route path="/" element={<HomePage groups={groups} projects={projects} />} />
+          <Route path="/create" element={<GroupCreator addGroup={addGroup} projects={projects} />} />
+          <Route
+            path="/groups/:id"
+            element={<GroupDetails groups={groups} currentUser={currentUser} joinGroup={joinGroup} leaveGroup={leaveGroup} />}
+          />
+        </Routes>
+      </main>
+    </div>
     </Router>
   );
 };
