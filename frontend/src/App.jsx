@@ -66,19 +66,19 @@ const App = () => {
 
   return (
     <Router>
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 transition-colors duration-300">
-      <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <main className="flex-1 p-16">
-        <Routes>
-          <Route path="/" element={<HomePage groups={groups} projects={projects} />} />
-          <Route path="/create" element={<GroupCreator addGroup={addGroup} projects={projects} />} />
-          <Route
-            path="/groups/:id"
-            element={<GroupDetails groups={groups} currentUser={currentUser} joinGroup={joinGroup} leaveGroup={leaveGroup} />}
-          />
-        </Routes>
-      </main>
-    </div>
+      <div className="min-h-screen flex flex-col bg-site text-primary transition-colors duration-300">
+        <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <main className="flex-1 p-16">
+          <Routes>
+            <Route path="/" element={<HomePage groups={groups} projects={projects} />} />
+            <Route path="/create" element={<GroupCreator addGroup={addGroup} projects={projects} />} />
+            <Route
+              path="/groups/:id"
+              element={<GroupDetails groups={groups} currentUser={currentUser} joinGroup={joinGroup} leaveGroup={leaveGroup} />}
+            />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 };

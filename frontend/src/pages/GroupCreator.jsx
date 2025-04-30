@@ -8,7 +8,7 @@ const GroupCreator = ({ addGroup, projects }) => {
   const [date, setDate] = useState('');
   const [project, setProject] = useState('');
   const navigate = useNavigate();
-  const { translations } = useLanguage(); 
+  const { translations } = useLanguage();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,46 +24,46 @@ const GroupCreator = ({ addGroup, projects }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-100 rounded shadow">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900">{translations.createGroup}</h1>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-card rounded shadow">
+      <h1 className="text-2xl font-bold mb-4 text-primary">{translations.createGroup}</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900">{translations.groupName}</label>
+          <label className="block text-sm font-medium mb-1 text-primary">{translations.groupName}</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900"
+            className="w-full px-3 py-2 border border-default rounded bg-input text-primary"
             placeholder={translations.groupName}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900">{translations.description}</label>
+          <label className="block text-sm font-medium mb-1 text-primary">{translations.description}</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900"
+            className="w-full px-3 py-2 border border-default rounded bg-input text-primary"
             placeholder={translations.description}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900">{translations.selectDay}</label>
+          <label className="block text-sm font-medium mb-1 text-primary">{translations.selectDay}</label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900"
+            className="w-full px-3 py-2 border border-default rounded bg-input text-primary"
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1 text-gray-900">{translations.selectProject}</label>
+          <label className="block text-sm font-medium mb-1 text-primary">{translations.selectProject}</label>
           <select
             value={project}
             onChange={(e) => setProject(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900"
+            className="w-full px-3 py-2 border border-default rounded bg-input text-primary"
             required
           >
             <option value="" disabled>
@@ -78,7 +78,7 @@ const GroupCreator = ({ addGroup, projects }) => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-primary hover:bg-primary-hover text-white py-2 rounded"
         >
           {translations.submit}
         </button>
